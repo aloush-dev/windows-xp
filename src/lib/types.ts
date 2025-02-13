@@ -1,9 +1,31 @@
+import { FC } from "react";
+
 export interface AppItemInfo {
-  title: string;
+  name: string;
   icon: string;
   width: number;
   height: number;
-  component: React.ComponentType;
+  component: FC;
+}
+
+export interface DesktopItem {
+  name: string;
+  icon: string;
+  app: AppItemInfo;
+}
+
+export interface DesktopIconType extends DesktopItem {
+  position: { row: number; col: number };
+}
+
+export interface TaskbarShortcut extends DesktopItem {
+  position: number;
+}
+
+export interface AppState extends AppItemInfo {
+  isOpen: boolean;
+  isMinimized: boolean;
+  isMaximized: boolean;
 }
 
 export interface User {

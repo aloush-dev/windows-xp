@@ -8,7 +8,7 @@ interface TaskbarItemProps {
 export const TaskbarItem = ({ app }: TaskbarItemProps) => {
   const { currentApp, setCurrentApp } = useAppStore();
 
-  const isActive = currentApp?.title === app.title;
+  const isActive = currentApp?.name === app.name;
 
   const handleClick = () => {
     if (isActive) {
@@ -26,7 +26,7 @@ export const TaskbarItem = ({ app }: TaskbarItemProps) => {
         } `}
       >
         <img className="h-5 w-5 " src={app.icon} />
-        <div className="text-white  text-sm px-2">{app.title}</div>
+        <div className="text-white  text-sm px-2">{app.name}</div>
       </div>
     </button>
   );

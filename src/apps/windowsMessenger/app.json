@@ -1,0 +1,8 @@
+{
+    "name": "Windows Messenger",
+    "path": "windowsMessenger",
+    "icon": "/images/icons/WindowsMessenger.png",
+    "width": 300,
+    "height": 600,
+    "component": "MessengerMainWindow"
+}

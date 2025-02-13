@@ -9,10 +9,10 @@ import MinimizeHover from "./svg/minimize-hover.svg";
 import MinimizeActive from "./svg/minimize-active.svg";
 import useAppStore from "../../stores/useAppStore";
 import { useState } from "react";
+import { AppState } from "../../lib/types";
 
-export const WindowActions = () => {
-  const { currentApp, minimizeApp, maximizeApp, removeApp, restoreApp } =
-    useAppStore();
+export const WindowActions = ({ app }: { app: AppState }) => {
+  const { minimizeApp, maximizeApp, removeApp, restoreApp } = useAppStore();
   const [hoveredButton, setHoveredButton] = useState<
     "close" | "maximize" | "minimize" | null
   >(null);
@@ -21,23 +21,23 @@ export const WindowActions = () => {
   >(null);
 
   const handleClose = () => {
-    if (currentApp) {
-      removeApp(currentApp);
+    if (app) {
+      removeApp(app);
     }
   };
 
   const handleMinimize = () => {
-    if (currentApp) {
-      minimizeApp(currentApp);
+    if (app) {
+      minimizeApp(app);
     }
   };
 
   const handleMaximize = () => {
-    if (currentApp) {
-      if (currentApp.isMaximized) {
-        restoreApp(currentApp);
+    if (app) {
+      if (app.isMaximized) {
+        restoreApp(app);
       } else {
-        maximizeApp(currentApp);
+        maximizeApp(app);
       }
     }
   };

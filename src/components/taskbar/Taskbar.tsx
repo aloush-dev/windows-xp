@@ -13,7 +13,7 @@ export const Taskbar = () => {
       <TaskbarShortcuts />
       <div className="flex-1 flex items-center">
         {apps.map((app) => (
-          <TaskbarItem key={app.title} app={app} />
+          <TaskbarItem key={app.name} app={app} />
         ))}
       </div>
 

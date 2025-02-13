@@ -1,25 +1,17 @@
 import { MouseEvent } from "react";
 import useAppStore from "../../stores/useAppStore";
-import { AppItemInfo } from "../../lib/types";
+import { DesktopIconType } from "../../lib/types";
 
 interface DesktopIconProps {
-  name: string;
-  icon: string;
-  position: { row: number; col: number };
-  app: AppItemInfo;
+  icon: DesktopIconType;
 }
 
-export const DesktopIcon: React.FC<DesktopIconProps> = ({
-  name,
-  icon,
-  position,
-  app,
-}) => {
+export const DesktopIcon: React.FC<DesktopIconProps> = ({ icon }) => {
   const { addApp, setCurrentApp } = useAppStore();
 
   const onDoubleClick = () => {
-    addApp(app);
-    setCurrentApp(app);
+    addApp(icon.app);
+    setCurrentApp(icon.app);
   };
 
   const handleClick = (event: MouseEvent) => {
@@ -32,13 +24,13 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({
     <button
       onClick={(event) => handleClick(event)}
       style={{
-        gridRowStart: position.row,
-        gridColumnStart: position.col,
+        gridRowStart: icon.position.row,
+        gridColumnStart: icon.position.col,
       }}
       className="flex flex-col items-center justify-center z-20"
     >
-      <img src={icon} alt={name} className="h-8 w-8" />
-      <p className="text-white text-sm">{name}</p>
+      <img src={icon.icon} alt={icon.name} className="h-8 w-8" />
+      <p className="text-white text-sm">{icon.name}</p>
     </button>
   );
 };

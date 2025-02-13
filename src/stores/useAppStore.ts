@@ -1,11 +1,5 @@
 import { create } from "zustand";
-import { AppItemInfo } from "../lib/types";
-
-interface AppState extends AppItemInfo {
-  isOpen: boolean;
-  isMinimized: boolean;
-  isMaximized: boolean;
-}
+import { AppItemInfo, AppState } from "../lib/types";
 
 interface AppStore {
   apps: AppState[];
@@ -23,7 +17,7 @@ const useAppStore = create<AppStore>((set) => ({
   currentApp: null,
   addApp: (app: AppItemInfo) => {
     set((state) => {
-      if (state.apps.find((a) => a.title === app.title)) {
+      if (state.apps.find((a) => a.name === app.name)) {
         return state;
       }
       const newApp: AppState = {
@@ -37,9 +31,8 @@ const useAppStore = create<AppStore>((set) => ({
   },
   removeApp: (app: AppItemInfo) => {
     set((state) => ({
-      apps: state.apps.filter((a) => a.title !== app.title),
-      currentApp:
-        state.currentApp?.title === app.title ? null : state.currentApp,
+      apps: state.apps.filter((a) => a.name !== app.name),
+      currentApp: state.currentApp?.name === app.name ? null : state.currentApp,
     }));
   },
   setCurrentApp: (app: AppItemInfo | null) => {
@@ -57,7 +50,7 @@ const useAppStore = create<AppStore>((set) => ({
   minimizeApp: (app: AppItemInfo) => {
     set((state) => ({
       apps: state.apps.map((a) =>
-        a.title === app.title ? { ...a, isMinimized: true } : a
+        a.name === app.name ? { ...a, isMinimized: true } : a
       ),
       currentApp: null,
     }));
@@ -65,10 +58,10 @@ const useAppStore = create<AppStore>((set) => ({
   maximizeApp: (app: AppItemInfo) => {
     set((state) => ({
       apps: state.apps.map((a) =>
-        a.title === app.title ? { ...a, isMaximized: true } : a
+        a.name === app.name ? { ...a, isMaximized: true } : a
       ),
       currentApp:
-        state.currentApp?.title === app.title
+        state.currentApp?.name === app.name
           ? { ...state.currentApp, isMaximized: true }
           : state.currentApp,
     }));
@@ -76,12 +69,12 @@ const useAppStore = create<AppStore>((set) => ({
   restoreApp: (app: AppItemInfo) => {
     set((state) => ({
       apps: state.apps.map((a) =>
-        a.title === app.title
+        a.name === app.name
           ? { ...a, isMinimized: false, isMaximized: false }
           : a
       ),
       currentApp:
-        state.currentApp?.title === app.title
+        state.currentApp?.name === app.name
           ? { ...state.currentApp, isMinimized: false, isMaximized: false }
           : state.currentApp,
     }));

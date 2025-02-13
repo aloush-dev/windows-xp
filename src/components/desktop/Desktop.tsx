@@ -2,10 +2,15 @@ import { DesktopIcon } from "./DesktopIcon";
 import { useDesktopStore } from "../../stores/useDesktopStore";
 import useAppStore from "../../stores/useAppStore";
 import { WindowTemplate } from "../windows/WindowTemplate";
+import { useEffect } from "react";
 
 export const Desktop = () => {
-  const { icons, desktopGrid } = useDesktopStore();
+  const { icons, desktopGrid, initialize } = useDesktopStore();
   const { apps } = useAppStore();
+
+  useEffect(() => {
+    initialize();
+  }, [initialize]);
 
   const gridCells = Array.from(
     { length: desktopGrid.rows * desktopGrid.cols },
@@ -26,13 +31,7 @@ export const Desktop = () => {
         }}
       >
         {icons.map((icon) => (
-          <DesktopIcon
-            key={icon.name}
-            name={icon.name}
-            icon={icon.icon}
-            position={icon.position}
-            app={icon.app}
-          />
+          <DesktopIcon key={icon.name} icon={icon} />
         ))}
 
         {gridCells.map(({ row, col }) => (
@@ -43,7 +42,7 @@ export const Desktop = () => {
           />
         ))}
         {apps.map((app) => (
-          <WindowTemplate key={app.title}>
+          <WindowTemplate key={app.name} app={app}>
             <app.component />
           </WindowTemplate>
         ))}
