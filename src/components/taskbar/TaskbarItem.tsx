@@ -6,12 +6,20 @@ interface TaskbarItemProps {
 }
 
 export const TaskbarItem = ({ app }: TaskbarItemProps) => {
-  const { currentApp } = useAppStore();
+  const { currentApp, setCurrentApp } = useAppStore();
 
   const isActive = currentApp?.title === app.title;
 
+  const handleClick = () => {
+    if (isActive) {
+      setCurrentApp(null);
+    } else {
+      setCurrentApp(app);
+    }
+  };
+
   return (
-    <button className="flex">
+    <button className="flex" onClick={handleClick}>
       <div
         className={`h-8  px-3  font-xp flex justify-center items-center rounded ${
           isActive ? "bg-taskbar-blue-light" : "bg-taskbar-blue"

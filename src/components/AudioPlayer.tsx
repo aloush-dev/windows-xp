@@ -20,7 +20,7 @@ export const AudioPlayer = () => {
         console.error("Playback failed:", error);
       });
     } else {
-      setSrc(null);
+      handleEnded();
     }
 
     audio.addEventListener("ended", handleEnded);
@@ -33,7 +33,7 @@ export const AudioPlayer = () => {
   return (
     <audio
       ref={audioRef}
-      src={currentSrc || ""}
+      src={currentSrc || undefined}
       preload="auto"
       style={{ display: "none" }}
     />

@@ -15,10 +15,11 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({
   position,
   app,
 }) => {
-  const { addApp } = useAppStore();
+  const { addApp, setCurrentApp } = useAppStore();
 
   const onDoubleClick = () => {
     addApp(app);
+    setCurrentApp(app);
   };
 
   const handleClick = (event: MouseEvent) => {
