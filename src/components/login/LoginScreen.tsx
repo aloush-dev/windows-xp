@@ -17,7 +17,7 @@ export const LoginScreen = () => {
       <div className="bg-login-bg-dark h-1/8 w-full"></div>
       <div className="bg-login-bg-light h-3/4 grid grid-cols-2">
         <div className="flex flex-col justify-center items-end px-12">
-          <img className="h-25  " src="/src/assets/LoginLogo.png" />
+          <img className="h-25  " src="/images/LoginLogo.png" />
           <p className="py-6">To being, click your user name</p>
         </div>
         <div className="flex flex-col justify-center border-l-1 border-white pl-4">

@@ -20,23 +20,23 @@ export const useDesktopStore = create<DesktopStore>(() => ({
   icons: [
     // {
     //   name: "My Computer",
-    //   icon: "/src/assets/icons/MyComputer.png",
+    //   icon: "/images/icons/MyComputer.png",
     //   position: { row: 1, col: 1 },
     // },
     // {
     //   name: "Recycle Bin",
-    //   icon: "/src/assets/icons/RecycleBinEmpty.png",
+    //   icon: "/images/icons/RecycleBinEmpty.png",
     //   position: { row: 6, col: 8 },
     // },
     {
       name: "Internet Explorer",
-      icon: "/src/assets/icons/InternetExplorer.png",
+      icon: "/images/icons/InternetExplorer.png",
       position: { row: 1, col: 1 },
       app: InternetExplorer,
     },
     {
       name: "Windows Messenger",
-      icon: "/src/assets/icons/WindowsMessenger.png",
+      icon: "/images/icons/WindowsMessenger.png",
       position: { row: 2, col: 1 },
       app: WindowsMessenger,
     },

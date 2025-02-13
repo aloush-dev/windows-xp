@@ -11,8 +11,8 @@ export const AudioPlayer = () => {
     if (!audio) return;
 
     const handleEnded = () => {
-      pause(); // Pause the audio
-      setSrc(null); // Clear the source
+      pause();
+      setSrc(null);
     };
 
     if (isPlaying && currentSrc) {

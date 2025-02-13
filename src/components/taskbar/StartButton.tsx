@@ -1,4 +1,4 @@
-import logo from "../../assets/windows-logo.svg";
+import logo from "/public/images/windows-logo.svg";
 import useTaskbarStore from "../../stores/useTaskbarStore";
 
 export const StartButton = () => {

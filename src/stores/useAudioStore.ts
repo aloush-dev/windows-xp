@@ -15,9 +15,7 @@ const useAudioStore = create<AudioStore>((set) => ({
   setSrc: (src: string | null) => set({ currentSrc: src }),
   play: () => set({ isPlaying: true }),
   pause: () => set({ isPlaying: false }),
-  togglePlay: () =>
-    // Implement togglePlay
-    set((state) => ({ isPlaying: !state.isPlaying })),
+  togglePlay: () => set((state) => ({ isPlaying: !state.isPlaying })),
 }));
 
 export default useAudioStore;

@@ -1,5 +1,5 @@
-import Power from "@/assets/icons/Power.png";
-import logOff from "@/assets/icons/Logout.png";
+import Power from "/images/icons/Power.png";
+import logOff from "/images/icons/Logout.png";
 import { useUserStore } from "../../../stores/useUserStore";
 
 export const PowerBar = () => {

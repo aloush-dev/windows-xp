@@ -4,7 +4,7 @@ import { AppItemInfo } from "./types";
 
 export const WindowsMessenger = {
   title: "Messenger",
-  icon: "/src/assets/icons/WindowsMessenger.png",
+  icon: "/images/icons/WindowsMessenger.png",
   width: 300,
   height: 600,
   component: MessengerMainWindow,
@@ -12,7 +12,7 @@ export const WindowsMessenger = {
 
 export const InternetExplorer = {
   title: "Internet Explorer",
-  icon: "/src/assets/icons/InternetExplorer.png",
+  icon: "/images/icons/InternetExplorer.png",
   width: 800,
   height: 600,
   component: InternetExplorerMainWindow,

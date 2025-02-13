@@ -1,6 +1,6 @@
-import IE from "@/assets/icons/InternetExplorer.png";
-import Desktop from "@/assets/icons/Desktop.png";
-import WindowsMediaPlayer from "@/assets/icons/WindowsMediaPlayer.png";
+import IE from "/images/icons/InternetExplorer.png";
+import Desktop from "/images/icons/Desktop.png";
+import WindowsMediaPlayer from "/images/icons/WindowsMediaPlayer.png";
 import useAppStore from "../../stores/useAppStore";
 import { InternetExplorer } from "../../lib/apps";
 
