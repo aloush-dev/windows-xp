@@ -17,7 +17,7 @@ export const TaskbarMenuLeft = () => {
         className="flex justify-center items-center py-2 m-2 hover:bg-xp-blue cursor-pointer hover:text-white "
       >
         <p className="font-bold ">All Programs</p>
-        <span className="border-t-4 border-b-4 border-l-8 border-t-transparent border-b-transparent border-l-green-500 ml-2"></span>
+        <span className="border-t-12 border-b-12 border-l-18 border-t-transparent border-b-transparent border-l-green-500 ml-2"></span>
       </div>
       {allProgramsOpen && (
         <div className="absolute bg-white shadow-md bottom-20 right-19">
