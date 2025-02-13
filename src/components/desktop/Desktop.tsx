@@ -19,7 +19,7 @@ export const Desktop = () => {
   return (
     <div className="bg-xp-blue h-screen">
       <div
-        className="bg-[url('./images/wallpaper.jpg')] bg-cover bg-center h-screen grid  gap-2 p-4"
+        className="bg-[url('/images/wallpaper.jpg')] bg-cover bg-center h-screen grid  gap-2 p-4"
         style={{
           gridTemplateColumns: `repeat(${desktopGrid.cols}, 1fr)`,
           gridTemplateRows: `repeat(${desktopGrid.rows}, 1fr)`,

@@ -7,7 +7,7 @@ export const LoginScreen = () => {
   const { setSrc, togglePlay } = useAudioStore();
 
   const login = (user: User) => {
-    setSrc("/public/sounds/startup.mp3");
+    setSrc("/sounds/startup.mp3");
     togglePlay();
     setUser(user);
   };
