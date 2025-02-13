@@ -8,19 +8,36 @@ import "./index.css";
 import useAppStore from "./stores/useAppStore";
 import useTaskbarStore from "./stores/useTaskbarStore";
 import { useUserStore } from "./stores/useUserStore";
+import { ContextMenu } from "./components/contextMenu/ContextMenu";
+import useContextMenuStore from "./stores/useContextMenuStore";
 
 function App() {
   const { menuOpen } = useTaskbarStore();
   const { currentUser } = useUserStore();
-  const { initialize } = useAppStore();
+  const { initialize, currentApp } = useAppStore();
+  const { showContextMenu } = useContextMenuStore();
 
   useEffect(() => {
     initialize();
   }, [initialize]);
 
+  useEffect(() => {
+    const handleContextMenu = (event: MouseEvent) => {
+      event.preventDefault();
+      showContextMenu(event.clientX, event.clientY, currentApp || null);
+    };
+
+    document.addEventListener("contextmenu", handleContextMenu);
+
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+    };
+  }, [showContextMenu, currentApp]);
+
   return (
     <div className="h-screen font-xp">
       <AudioPlayer />
+      <ContextMenu />
       {currentUser ? (
         <>
           <Desktop />

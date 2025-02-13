@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { ContextMenuItem } from "../stores/useContextMenuStore";
 
 export interface AppItemInfo {
   name: string;
@@ -6,6 +7,7 @@ export interface AppItemInfo {
   width: number;
   height: number;
   component: FC;
+  contextMenuItems?: ContextMenuItem[];
 }
 
 export interface DesktopItem {

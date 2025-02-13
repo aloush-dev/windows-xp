@@ -17,4 +17,4 @@ export async function loadApp(appName: string): Promise<AppItemInfo> {
   }
 }
 
-export const installedApps = ["internetExplorer", "windowsMessenger"];
+export const installedApps = ["internetExplorer", "msnMessenger"];

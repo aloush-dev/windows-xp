@@ -26,12 +26,6 @@ const useTaskbarStore = create<TaskbarStore>((set, get) => ({
           position: 1,
           app: await loadApp("internetExplorer"),
         },
-        {
-          name: "Windows Messenger",
-          icon: "/images/icons/WindowsMessenger.png",
-          position: 2,
-          app: await loadApp("windowsMessenger"),
-        },
       ];
 
       set({ taskbarShortcuts: initialShortcuts });

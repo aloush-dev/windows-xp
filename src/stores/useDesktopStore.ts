@@ -20,21 +20,18 @@ export const useDesktopStore = create<DesktopStore>((set, get) => ({
     }
 
     try {
-      const internetExplorerApp = await loadApp("internetExplorer");
-      const windowsMessengerApp = await loadApp("windowsMessenger");
-
       const initialIcons: DesktopIconType[] = [
         {
           name: "Internet Explorer",
           icon: "/images/icons/InternetExplorer.png",
           position: { row: 1, col: 1 },
-          app: internetExplorerApp,
+          app: await loadApp("internetExplorer"),
         },
         {
-          name: "Windows Messenger",
-          icon: "/images/icons/WindowsMessenger.png",
+          name: "MSN Messenger",
+          icon: "/images/icons/MSNMessenger.png",
           position: { row: 2, col: 1 },
-          app: windowsMessengerApp,
+          app: await loadApp("msnMessenger"),
         },
       ];
 

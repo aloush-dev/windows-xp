@@ -1,0 +1,22 @@
+{
+    "name": "MSN Messenger",
+    "path": "msnMessenger",
+    "icon": "/images/icons/MSNMessenger.png",
+    "width": 300,
+    "height": 600,
+    "component": "MessengerMainWindow",
+    "contextMenuItems": [
+        {
+            "label": "New Chat",
+            "action": "newChat"
+        },
+        {
+            "label": "New Group",
+            "action": "newGroup"
+        },
+        {
+            "label": "Settings",
+            "action": "settings"
+        }
+    ]
+}
