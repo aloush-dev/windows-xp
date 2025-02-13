@@ -1,5 +1,7 @@
 import { useUserStore } from "../../../stores/useUserStore";
 import { PowerBar } from "./PowerBar";
+import { TaskbarMenuLeft } from "./TaskbarMenuLeft";
+import { TaskbarMenuRight } from "./TaskbarMenuRight";
 
 export const TaskbarMenu = () => {
   const { currentUser } = useUserStore();
@@ -15,8 +17,8 @@ export const TaskbarMenu = () => {
         <p className="text-3xl text-white ">{currentUser?.name}</p>
       </div>
       <div className="grid grid-cols-2 h-[35rem] mx-0.5 ">
-        <div className="bg-white"></div>
-        <div className="bg-[#d3e5fb] border-l-2 border-[#b9d4f6] "></div>
+        <TaskbarMenuLeft />
+        <TaskbarMenuRight />
       </div>
       <div className="h-20">
         <PowerBar />

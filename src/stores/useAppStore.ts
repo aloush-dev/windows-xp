@@ -1,8 +1,10 @@
 import { create } from "zustand";
 import { AppItemInfo, AppState } from "../lib/types";
+import { installedApps, loadApp } from "../lib/appUtils";
 
 interface AppStore {
-  apps: AppState[];
+  openApps: AppState[];
+  allApps: { [key: string]: AppItemInfo };
   currentApp: AppState | null;
   addApp: (app: AppItemInfo) => void;
   removeApp: (app: AppItemInfo) => void;
@@ -10,14 +12,16 @@ interface AppStore {
   minimizeApp: (app: AppItemInfo) => void;
   maximizeApp: (app: AppItemInfo) => void;
   restoreApp: (app: AppItemInfo) => void;
+  initialize: () => Promise<void>;
 }
 
 const useAppStore = create<AppStore>((set) => ({
-  apps: [],
+  openApps: [],
+  allApps: {},
   currentApp: null,
   addApp: (app: AppItemInfo) => {
     set((state) => {
-      if (state.apps.find((a) => a.name === app.name)) {
+      if (state.openApps.find((a) => a.name === app.name)) {
         return state;
       }
       const newApp: AppState = {
@@ -26,12 +30,12 @@ const useAppStore = create<AppStore>((set) => ({
         isMinimized: false,
         isMaximized: false,
       };
-      return { apps: [...state.apps, newApp] };
+      return { openApps: [...state.openApps, newApp] };
     });
   },
   removeApp: (app: AppItemInfo) => {
     set((state) => ({
-      apps: state.apps.filter((a) => a.name !== app.name),
+      openApps: state.openApps.filter((a) => a.name !== app.name),
       currentApp: state.currentApp?.name === app.name ? null : state.currentApp,
     }));
   },
@@ -49,7 +53,7 @@ const useAppStore = create<AppStore>((set) => ({
   },
   minimizeApp: (app: AppItemInfo) => {
     set((state) => ({
-      apps: state.apps.map((a) =>
+      openApps: state.openApps.map((a) =>
         a.name === app.name ? { ...a, isMinimized: true } : a
       ),
       currentApp: null,
@@ -57,7 +61,7 @@ const useAppStore = create<AppStore>((set) => ({
   },
   maximizeApp: (app: AppItemInfo) => {
     set((state) => ({
-      apps: state.apps.map((a) =>
+      openApps: state.openApps.map((a) =>
         a.name === app.name ? { ...a, isMaximized: true } : a
       ),
       currentApp:
@@ -68,7 +72,7 @@ const useAppStore = create<AppStore>((set) => ({
   },
   restoreApp: (app: AppItemInfo) => {
     set((state) => ({
-      apps: state.apps.map((a) =>
+      openApps: state.openApps.map((a) =>
         a.name === app.name
           ? { ...a, isMinimized: false, isMaximized: false }
           : a
@@ -78,6 +82,20 @@ const useAppStore = create<AppStore>((set) => ({
           ? { ...state.currentApp, isMinimized: false, isMaximized: false }
           : state.currentApp,
     }));
+  },
+  initialize: async () => {
+    if (Object.keys(useAppStore.getState().allApps).length > 0) {
+      return;
+    }
+
+    try {
+      installedApps.forEach(async (app) => {
+        const loadedApp = await loadApp(app);
+        set((state) => ({ allApps: { ...state.allApps, [app]: loadedApp } }));
+      });
+    } catch (error) {
+      console.error("Error initializing apps:", error);
+    }
   },
 }));
 

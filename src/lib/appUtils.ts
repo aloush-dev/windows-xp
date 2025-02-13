@@ -17,8 +17,4 @@ export async function loadApp(appName: string): Promise<AppItemInfo> {
   }
 }
 
-export const installedApps = Promise.all([
-  loadApp("taskManager"),
-  loadApp("internetExplorer"),
-  loadApp("windowsMessenger"),
-]);
+export const installedApps = ["internetExplorer", "windowsMessenger"];

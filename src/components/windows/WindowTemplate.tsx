@@ -60,7 +60,7 @@ export const WindowTemplate = ({
       className="absolute shadow-lg"
       style={{
         width: app?.isMaximized ? "100%" : app?.width,
-        height: app?.isMaximized ? "100%" : app?.height,
+        height: app?.isMaximized ? "calc(100% - 80px)" : app?.height,
         top: position.y,
         left: position.x,
         zIndex: app.name === currentApp?.name ? 70 : 30,

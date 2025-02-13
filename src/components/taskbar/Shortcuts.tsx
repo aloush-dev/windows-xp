@@ -4,7 +4,7 @@ import useTaskbarStore from "../../stores/useTaskbarStore";
 
 export const TaskbarShortcuts = () => {
   const { addApp } = useAppStore();
-  const { shortcuts, initialize } = useTaskbarStore();
+  const { taskbarShortcuts, initialize } = useTaskbarStore();
 
   useEffect(() => {
     initialize();
@@ -12,7 +12,7 @@ export const TaskbarShortcuts = () => {
 
   return (
     <div className="flex gap-2 px-4">
-      {shortcuts.map((shortcut) => (
+      {taskbarShortcuts.map((shortcut) => (
         <button onClick={() => addApp(shortcut.app)} key={shortcut.name}>
           <img className="h-5 w-5" src={shortcut.icon} />
         </button>

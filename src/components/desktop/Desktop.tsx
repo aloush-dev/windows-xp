@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 export const Desktop = () => {
   const { icons, desktopGrid, initialize } = useDesktopStore();
-  const { apps } = useAppStore();
+  const { openApps } = useAppStore();
 
   useEffect(() => {
     initialize();
@@ -41,7 +41,7 @@ export const Desktop = () => {
             className="bg-transparent "
           />
         ))}
-        {apps.map((app) => (
+        {openApps.map((app) => (
           <WindowTemplate key={app.name} app={app}>
             <app.component />
           </WindowTemplate>
