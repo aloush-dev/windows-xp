@@ -23,12 +23,14 @@ export const useDesktopStore = create<DesktopStore>((set, get) => ({
       const initialIcons: DesktopIconType[] = [
         {
           name: "Internet Explorer",
+          id: "internetExplorer",
           icon: "/images/icons/InternetExplorer.png",
           position: { row: 1, col: 1 },
           app: await loadApp("internetExplorer"),
         },
         {
           name: "MSN Messenger",
+          id: "msnMessenger",
           icon: "/images/icons/MSNMessenger.png",
           position: { row: 2, col: 1 },
           app: await loadApp("msnMessenger"),

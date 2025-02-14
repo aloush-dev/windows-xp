@@ -11,7 +11,6 @@ export const TaskbarMenuLeft = () => {
   return (
     <div className="bg-white flex flex-col space-y-4 ">
       <div className="flex-grow"></div>
-      <span className="bg-gray-300 h-0.5"></span>
       <div
         onClick={() => setAllProgramsOpen(!allProgramsOpen)}
         className="flex justify-center items-center py-2 m-2 hover:bg-xp-blue cursor-pointer hover:text-white "

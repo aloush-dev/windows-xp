@@ -22,6 +22,7 @@ const useTaskbarStore = create<TaskbarStore>((set, get) => ({
       const initialShortcuts: TaskbarShortcut[] = [
         {
           name: "Internet Explorer",
+          id: "internetExplorer",
           icon: "/images/icons/InternetExplorer.png",
           position: 1,
           app: await loadApp("internetExplorer"),
