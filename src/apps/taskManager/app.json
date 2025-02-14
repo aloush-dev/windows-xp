@@ -1,8 +1,9 @@
 {
-    "name": "TaskManager",
+    "name": "Task Manager",
+    "id" : "taskManager",
     "icon": "/images/icons/TaskManager.png",
     "path": "taskManager",
-    "width": 800,
+    "width": 400,
     "height": 600,
     "component": "TaskManagerMainWindow"
 }

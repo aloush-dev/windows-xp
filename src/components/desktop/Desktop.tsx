@@ -3,10 +3,12 @@ import { useDesktopStore } from "../../stores/useDesktopStore";
 import useAppStore from "../../stores/useAppStore";
 import { WindowTemplate } from "../windows/WindowTemplate";
 import { useEffect } from "react";
+import useWindowManager from "../../stores/useWindowManager";
 
 export const Desktop = () => {
   const { icons, desktopGrid, initialize } = useDesktopStore();
-  const { openApps } = useAppStore();
+  const { installedApps } = useAppStore();
+  const { windows } = useWindowManager();
 
   useEffect(() => {
     initialize();
@@ -41,11 +43,19 @@ export const Desktop = () => {
             className="bg-transparent "
           />
         ))}
-        {openApps.map((app) => (
-          <WindowTemplate key={app.name} app={app}>
-            <app.component />
-          </WindowTemplate>
-        ))}
+        {windows.map((window) => {
+          const app = Object.values(installedApps).find(
+            (app) => app.id === window.appId
+          );
+
+          if (!app) return null;
+
+          return (
+            <WindowTemplate key={window.id} window={window} app={app}>
+              <app.component />
+            </WindowTemplate>
+          );
+        })}
       </div>
     </div>
   );

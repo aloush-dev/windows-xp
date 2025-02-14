@@ -1,29 +1,56 @@
 import { useState, useEffect, ReactNode } from "react";
-import { WindowActions } from "./WindowActions";
-import { AppState } from "../../lib/types";
-import useAppStore from "../../stores/useAppStore";
+import { AppItemInfo, WindowState } from "../../lib/types";
+import useWindowManager from "../../stores/useWindowManager";
+import { TitleBar } from "../ui/TitleBar";
 
 export const WindowTemplate = ({
   children,
+  window,
   app,
 }: {
   children: ReactNode;
-  app: AppState;
+  window: WindowState;
+  app: AppItemInfo;
 }) => {
-  const [position, setPosition] = useState({ x: 100, y: 100 });
+  const {
+    updateWindowPosition,
+    bringWindowToFront,
+    closeWindow,
+    maximizeWindow,
+    minimizeWindow,
+  } = useWindowManager();
 
-  const { setCurrentApp, currentApp } = useAppStore();
+  const isFocused = window.isFocused;
 
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
+  const handleClose = () => {
+    if (window) {
+      closeWindow(window.id);
+    }
+  };
+
+  const handleMinimize = () => {
+    if (window) {
+      minimizeWindow(window.id);
+    }
+  };
+
+  const handleMaximize = () => {
+    if (window) {
+      maximizeWindow(window.id);
+    }
+  };
+
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      if (isDragging && app) {
-        setPosition({
-          x: event.clientX - dragOffset.x,
-          y: event.clientY - dragOffset.y,
-        });
+      if (isDragging) {
+        updateWindowPosition(
+          window.id,
+          event.clientX - dragOffset.x,
+          event.clientY - dragOffset.y
+        );
       }
     };
 
@@ -31,52 +58,64 @@ export const WindowTemplate = ({
       setIsDragging(false);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
+    globalThis.window.addEventListener("mousemove", handleMouseMove);
+    globalThis.window.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
+      globalThis.window.removeEventListener("mousemove", handleMouseMove);
+      globalThis.window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isDragging, dragOffset, app]);
+  }, [isDragging, dragOffset, window.id, updateWindowPosition]);
 
   const handleMouseDown = (event: React.MouseEvent) => {
-    setCurrentApp(app);
+    bringWindowToFront(window.id);
     if (app) {
       setIsDragging(true);
       setDragOffset({
-        x: event.clientX - position.x,
-        y: event.clientY - position.y,
+        x: event.clientX - window.x,
+        y: event.clientY - window.y,
       });
     }
   };
 
-  if (!app || app.isMinimized) {
+  if (window.isMinimized) {
     return null;
   }
+  // const borderColor = isFocused
+  //   ? "border-[#0058ee] border-2"
+  //   : "border-[#7697e7] border-2";
 
   return (
     <div
-      className="absolute shadow-lg"
+      className={`absolute window `}
       style={{
-        width: app?.isMaximized ? "100%" : app?.width,
-        height: app?.isMaximized ? "calc(100% - 80px)" : app?.height,
-        top: position.y,
-        left: position.x,
-        zIndex: app.name === currentApp?.name ? 70 : 30,
+        width: window?.isMaximized ? "100%" : window?.width.toString() + "px",
+        height: window?.isMaximized
+          ? "calc(100% - 80px)"
+          : window?.height.toString() + "px",
+        top: window.y,
+        left: window.x,
+        zIndex: window.zIndex,
       }}
     >
-      <div
-        className="bg-window-blue  p-2 cursor-move h-10 flex justify-between rounded-t-xl"
+      <TitleBar
+        isFocused={isFocused}
+        className="flex items-center justify-between"
         onMouseDown={handleMouseDown}
       >
-        <div className="flex justify-center items-center gap-2">
-          <img className="h-5 w-5" src={app.icon} />
-          <div className="text-white font-bold">{app.name}</div>
+        <div className="flex items-center gap-2">
+          <img className="h-4 w-4" src={app.icon} />
+          <div className="title-bar-text">{app.name}</div>
         </div>
-        <WindowActions app={app} />
-      </div>
-      <div className=" border-2 border-window-blue bg-gray-200 h-full">
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" onClick={handleMinimize}></button>
+          <button aria-label="Maximize" onClick={handleMaximize}></button>
+          <button aria-label="Close" onClick={handleClose}></button>
+        </div>
+      </TitleBar>
+      <div
+        className={`window-body h-[calc(100%-40px)] overflow-auto`}
+      >
         {children}
       </div>
     </div>

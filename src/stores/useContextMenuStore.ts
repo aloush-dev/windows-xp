@@ -12,6 +12,7 @@ interface ContextMenuStore {
   app: AppItemInfo | null;
   showContextMenu: (x: number, y: number, app: AppItemInfo | null) => void;
   hideContextMenu: () => void;
+  customContextMenuItems?: ContextMenuItem[] | null;
 }
 
 const useContextMenuStore = create<ContextMenuStore>((set) => ({
@@ -21,6 +22,7 @@ const useContextMenuStore = create<ContextMenuStore>((set) => ({
   app: null,
   showContextMenu: (x, y, app) => set({ x, y, isOpen: true, app }),
   hideContextMenu: () => set({ isOpen: false, app: null }),
+  customContextMenuItems: null,
 }));
 
 export default useContextMenuStore;

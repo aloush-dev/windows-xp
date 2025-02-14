@@ -1,6 +1,6 @@
 {
     "name": "MSN Messenger",
-    "path": "msnMessenger",
+    "id": "msnMessenger",
     "icon": "/images/icons/MSNMessenger.png",
     "width": 300,
     "height": 600,

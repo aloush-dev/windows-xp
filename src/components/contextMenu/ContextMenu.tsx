@@ -17,7 +17,8 @@ const defaultContextMenuItems = [
 ];
 
 export const ContextMenu: React.FC = () => {
-  const { x, y, isOpen, hideContextMenu, app } = useContextMenuStore();
+  const { x, y, isOpen, hideContextMenu, app, customContextMenuItems } =
+    useContextMenuStore();
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -49,7 +50,20 @@ export const ContextMenu: React.FC = () => {
         left: x,
       }}
     >
-      {app?.contextMenuItems ? (
+      {customContextMenuItems ? (
+        <>
+          {customContextMenuItems?.map((item, index) => (
+            <ContextMenuItem
+              key={index}
+              label={item.label}
+              onClick={() => {
+                item.onClick();
+                hideContextMenu();
+              }}
+            />
+          ))}
+        </>
+      ) : app?.contextMenuItems ? (
         <>
           {app.contextMenuItems?.map((item, index) => (
             <ContextMenuItem
@@ -88,13 +102,13 @@ const ContextMenuItem = ({
   onClick: () => void;
 }) => {
   return (
-    <button
+    <div
       className="block w-full text-left text-sm px-6 py-0.5  text-black hover:bg-xp-blue hover:text-white"
       onClick={() => {
         onClick();
       }}
     >
       {label}
-    </button>
+    </div>
   );
 };

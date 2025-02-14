@@ -1,5 +1,6 @@
 {
     "name": "Internet Explorer",
+    "id": "internetExplorer",
     "icon": "/images/icons/InternetExplorer.png",
     "path": "internetExplorer",
     "width": 800,

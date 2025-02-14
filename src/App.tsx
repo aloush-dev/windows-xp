@@ -14,12 +14,8 @@ import useContextMenuStore from "./stores/useContextMenuStore";
 function App() {
   const { menuOpen } = useTaskbarStore();
   const { currentUser } = useUserStore();
-  const { initialize, currentApp } = useAppStore();
+  const { currentApp } = useAppStore();
   const { showContextMenu } = useContextMenuStore();
-
-  useEffect(() => {
-    initialize();
-  }, [initialize]);
 
   useEffect(() => {
     const handleContextMenu = (event: MouseEvent) => {

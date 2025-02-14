@@ -6,7 +6,7 @@ export const TaskbarMenuLeft = () => {
   const [allProgramsOpen, setAllProgramsOpen] = useState(false);
 
   const { toggleMenu } = useTaskbarStore();
-  const { allApps, addApp } = useAppStore();
+  const { installedApps, launchApp } = useAppStore();
 
   return (
     <div className="bg-white flex flex-col space-y-4 ">
@@ -21,11 +21,11 @@ export const TaskbarMenuLeft = () => {
       </div>
       {allProgramsOpen && (
         <div className="absolute bg-white shadow-md bottom-20 right-19">
-          {Object.values(allApps).map((app) => (
+          {Object.values(installedApps).map((app) => (
             <div
               onClick={() => {
                 toggleMenu();
-                addApp(app);
+                launchApp(app);
               }}
               key={app.name}
               className="flex items-center p-2  hover:bg-xp-blue cursor-pointer hover:text-white "

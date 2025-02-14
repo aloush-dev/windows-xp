@@ -1,102 +1,56 @@
 import { create } from "zustand";
-import { AppItemInfo, AppState } from "../lib/types";
-import { installedApps, loadApp } from "../lib/appUtils";
+import useWindowManager from "./useWindowManager";
+import { AppItemInfo } from "../lib/types";
+import { installedApps } from "../lib/appUtils";
 
-interface AppStore {
-  openApps: AppState[];
-  allApps: { [key: string]: AppItemInfo };
-  currentApp: AppState | null;
-  addApp: (app: AppItemInfo) => void;
-  removeApp: (app: AppItemInfo) => void;
-  setCurrentApp: (app: AppItemInfo | null) => void;
-  minimizeApp: (app: AppItemInfo) => void;
-  maximizeApp: (app: AppItemInfo) => void;
-  restoreApp: (app: AppItemInfo) => void;
-  initialize: () => Promise<void>;
+interface AppState {
+  installedApps: AppItemInfo[];
+  currentApp: AppItemInfo | null;
+  runningApps: string[];
+  launchApp: (app: AppItemInfo) => void;
+  closeApp: (id: string) => void;
+  requestNewWindow: (appId: string, title: string) => string;
 }
 
-const useAppStore = create<AppStore>((set) => ({
-  openApps: [],
-  allApps: {},
-  currentApp: null,
-  addApp: (app: AppItemInfo) => {
-    set((state) => {
-      if (state.openApps.find((a) => a.name === app.name)) {
-        return state;
-      }
-      const newApp: AppState = {
-        ...app,
-        isOpen: true,
-        isMinimized: false,
-        isMaximized: false,
-      };
-      return { openApps: [...state.openApps, newApp] };
-    });
-  },
-  removeApp: (app: AppItemInfo) => {
-    set((state) => ({
-      openApps: state.openApps.filter((a) => a.name !== app.name),
-      currentApp: state.currentApp?.name === app.name ? null : state.currentApp,
-    }));
-  },
-  setCurrentApp: (app: AppItemInfo | null) => {
-    set({
-      currentApp: app
-        ? {
-            ...app,
-            isOpen: true,
-            isMinimized: false,
-            isMaximized: false,
-          }
-        : null,
-    });
-  },
-  minimizeApp: (app: AppItemInfo) => {
-    set((state) => ({
-      openApps: state.openApps.map((a) =>
-        a.name === app.name ? { ...a, isMinimized: true } : a
-      ),
-      currentApp: null,
-    }));
-  },
-  maximizeApp: (app: AppItemInfo) => {
-    set((state) => ({
-      openApps: state.openApps.map((a) =>
-        a.name === app.name ? { ...a, isMaximized: true } : a
-      ),
-      currentApp:
-        state.currentApp?.name === app.name
-          ? { ...state.currentApp, isMaximized: true }
-          : state.currentApp,
-    }));
-  },
-  restoreApp: (app: AppItemInfo) => {
-    set((state) => ({
-      openApps: state.openApps.map((a) =>
-        a.name === app.name
-          ? { ...a, isMinimized: false, isMaximized: false }
-          : a
-      ),
-      currentApp:
-        state.currentApp?.name === app.name
-          ? { ...state.currentApp, isMinimized: false, isMaximized: false }
-          : state.currentApp,
-    }));
-  },
-  initialize: async () => {
-    if (Object.keys(useAppStore.getState().allApps).length > 0) {
-      return;
-    }
+const useAppStore = create<AppState>((set, get) => {
+  installedApps.then((apps) => {
+    set({ installedApps: apps });
+  });
 
-    try {
-      installedApps.forEach(async (app) => {
-        const loadedApp = await loadApp(app);
-        set((state) => ({ allApps: { ...state.allApps, [app]: loadedApp } }));
+  return {
+    installedApps: [],
+    currentApp: null,
+    runningApps: [],
+    launchApp: (app) => {
+      get().requestNewWindow(app.id, app.name);
+
+      set((state) => ({
+        runningApps: [...state.runningApps, app.id],
+        currentApp: app,
+      }));
+    },
+    closeApp: (id) => {
+      const windowManager = useWindowManager.getState();
+      const windows = windowManager.windows;
+
+      windows
+        .filter((window) => window.appId === id)
+        .forEach((window) => windowManager.closeWindow(window.id));
+
+      set((state) => ({
+        runningApps: state.runningApps.filter((appId) => appId !== id),
+        currentApp: state.currentApp?.id === id ? null : state.currentApp,
+      }));
+    },
+    requestNewWindow: (appId, title) => {
+      const app = get().installedApps.find((app) => app.id === appId);
+
+      return useWindowManager.getState().createWindow(appId, title, {
+        width: app?.width || 800,
+        height: app?.height || 600,
       });
-    } catch (error) {
-      console.error("Error initializing apps:", error);
-    }
-  },
-}));
+    },
+  };
+});
 
 export default useAppStore;

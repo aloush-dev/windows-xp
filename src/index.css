@@ -8,6 +8,7 @@
   --color-taskbar-blue: #0c4ec4;
   --color-taskbar-blue-light: #1084d0;
   --color-window-blue: #0060fb;
+  --color-cream-background : #ece9d8
 
   --color-surface: #add8e6;
   --color-button-highlight: #ffffff;
@@ -21,7 +22,10 @@
   --color-login-bg-light: #5a7edc;
   --color-login-bg-dark: #1831a3;
 
-
+  --color-button-highlight: #ffffff;
+  --color-button-face: #dfdfdf;
+  --color-button-shadow: #808080;
+  
   --inset-shadow-window-outer: inset -1px -1px var(--color-window-frame), inset 1px 1px var(--color-button-face);
   --inset-shadow-window-inner: inset -2px -2px var(--color-button-shadow), inset 2px 2px var(--color-button-highlight);
   --inset-shadow-status-bar-field: inset -1px -1px var(--color-button-face), inset 1px 1px var(--color-button-shadow)

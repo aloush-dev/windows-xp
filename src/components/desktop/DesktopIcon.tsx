@@ -7,11 +7,11 @@ interface DesktopIconProps {
 }
 
 export const DesktopIcon: React.FC<DesktopIconProps> = ({ icon }) => {
-  const { addApp, setCurrentApp } = useAppStore();
+  const { launchApp } = useAppStore();
 
   const onDoubleClick = () => {
-    addApp(icon.app);
-    setCurrentApp(icon.app);
+    console.log("Double click", icon.name);
+    launchApp(icon.app);
   };
 
   const handleClick = (event: MouseEvent) => {
@@ -21,7 +21,7 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({ icon }) => {
   };
 
   return (
-    <button
+    <div
       onClick={(event) => handleClick(event)}
       style={{
         gridRowStart: icon.position.row,
@@ -31,6 +31,6 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({ icon }) => {
     >
       <img src={icon.icon} alt={icon.name} className="h-8 w-8" />
       <p className="text-white text-sm">{icon.name}</p>
-    </button>
+    </div>
   );
 };
