@@ -1,14 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-xp-blue: #0c4ec4;
+  --color-xp-blue: #2f71cd;
   --color-xp-green: #3ca046;
   --color-xp-red: #e04b2b;
   --color-xp-yellow: #ffd51b;
   --color-taskbar-blue: #0c4ec4;
   --color-taskbar-blue-light: #1084d0;
   --color-window-blue: #0060fb;
-  --color-cream-background : #ece9d8
+  --color-cream-background : #ece9d8;
+  --color-cream-border : #cac6b3;
 
   --color-surface: #add8e6;
   --color-button-highlight: #ffffff;
@@ -18,6 +19,7 @@
   --color-dialog-blue: #000080;
   --color-dialog-blue-light: #1084d0;
   --color-link-blue: #0000ff;
+  --color-taskbar-system-tray: #0f8ee9;
 
   --color-login-bg-light: #5a7edc;
   --color-login-bg-dark: #1831a3;
@@ -29,6 +31,9 @@
   --inset-shadow-window-outer: inset -1px -1px var(--color-window-frame), inset 1px 1px var(--color-button-face);
   --inset-shadow-window-inner: inset -2px -2px var(--color-button-shadow), inset 2px 2px var(--color-button-highlight);
   --inset-shadow-status-bar-field: inset -1px -1px var(--color-button-face), inset 1px 1px var(--color-button-shadow)
+
+--shadow-window-outer: -1px -1px 0 var(--color-window-frame), 1px 1px 0 var(--color-button-face);
+
 
   --font-xp: "Tahoma";
 }

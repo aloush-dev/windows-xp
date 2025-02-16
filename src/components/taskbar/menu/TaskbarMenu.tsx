@@ -1,13 +1,35 @@
+import { useEffect, useRef } from "react";
 import { useUserStore } from "../../../stores/useUserStore";
 import { PowerBar } from "./PowerBar";
 import { TaskbarMenuLeft } from "./TaskbarMenuLeft";
 import { TaskbarMenuRight } from "./TaskbarMenuRight";
+import useTaskbarStore from "../../../stores/useTaskbarStore";
 
 export const TaskbarMenu = () => {
   const { currentUser } = useUserStore();
+  const { toggleMenu } = useTaskbarStore();
+
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        toggleMenu();
+      }
+    };
+
+    window.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef]);
 
   return (
-    <div className="fixed bottom-8 left-0 w-[28rem] z-[100] shadow-lg bg-xp-blue rounded-t-lg">
+    <div
+      className="fixed bottom-8 left-0 w-[28rem] z-[100] shadow-lg bg-xp-blue rounded-t-lg"
+      ref={menuRef}
+    >
       <div className=" h-25 rounded-t-lg flex items-center space-x-4 pl-2">
         <img
           src={currentUser?.image}

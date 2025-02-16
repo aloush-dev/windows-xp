@@ -30,7 +30,9 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({ icon }) => {
       className="flex flex-col items-center justify-center z-20"
     >
       <img src={icon.icon} alt={icon.name} className="h-8 w-8" />
-      <p className="text-white text-sm">{icon.name}</p>
+      <p className="text-white text-xs [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">
+        {icon.name}
+      </p>
     </div>
   );
 };

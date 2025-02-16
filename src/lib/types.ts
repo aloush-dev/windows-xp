@@ -9,6 +9,18 @@ export interface AppItemInfo {
   height: number;
   component: FC;
   contextMenuItems?: ContextMenuItem[];
+  windowMenu?: WindowMenuItemType;
+}
+
+export interface WindowMenuItemType {
+  [key: string]: WindowMenuSubItemType[];
+}
+
+export interface WindowMenuSubItemType {
+  label: string;
+  onClick?: () => void;
+  items?: WindowMenuSubItemType[];
+  separator?: boolean;
 }
 
 export interface DesktopItem {

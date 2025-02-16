@@ -2,6 +2,7 @@ import { useState, useEffect, ReactNode } from "react";
 import { AppItemInfo, WindowState } from "../../lib/types";
 import useWindowManager from "../../stores/useWindowManager";
 import { TitleBar } from "../ui/TitleBar";
+import { WindowMenu } from "./WindowMenu";
 
 export const WindowTemplate = ({
   children,
@@ -81,13 +82,13 @@ export const WindowTemplate = ({
   if (window.isMinimized) {
     return null;
   }
-  // const borderColor = isFocused
-  //   ? "border-[#0058ee] border-2"
-  //   : "border-[#7697e7] border-2";
+  const borderColor = isFocused
+    ? "border-[#0058ee] border-2 border-t-0"
+    : "border-[#7697e7] border-2 border-t-0";
 
   return (
     <div
-      className={`absolute window `}
+      className={`absolute `}
       style={{
         width: window?.isMaximized ? "100%" : window?.width.toString() + "px",
         height: window?.isMaximized
@@ -97,6 +98,7 @@ export const WindowTemplate = ({
         left: window.x,
         zIndex: window.zIndex,
       }}
+      onMouseDown={handleMouseDown}
     >
       <TitleBar
         isFocused={isFocused}
@@ -114,8 +116,9 @@ export const WindowTemplate = ({
         </div>
       </TitleBar>
       <div
-        className={`window-body h-[calc(100%-40px)] overflow-auto`}
+        className={`${borderColor} bg-cream-background h-[calc(100%-40px)] overflow-auto`}
       >
+        <WindowMenu app={app} />
         {children}
       </div>
     </div>

@@ -19,5 +19,9 @@ export const SystemTray = () => {
     return () => clearInterval(interval);
   }, []);
 
-  return <div className="flex px-4 text-white text-sm">{currentTime}</div>;
+  return (
+    <div className="bg-taskbar-system-tray flex px-4 text-white text-sm">
+      {currentTime}
+    </div>
+  );
 };
