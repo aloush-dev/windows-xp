@@ -2,7 +2,7 @@ import { AppItemInfo } from "./types";
 
 export async function loadApp(appName: string): Promise<AppItemInfo> {
   try {
-    const appInfo = await import(`../apps/${appName}/app.json`);
+    const appInfo = await import(`../apps/${appName}/appInfo.ts`);
     const componentModule = await import(`../apps/${appName}/Main.tsx`);
     const componentName = appInfo.default.component;
     const component = componentModule[componentName];

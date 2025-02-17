@@ -10,8 +10,15 @@ export interface AppItemInfo {
   component: FC;
   contextMenuItems?: ContextMenuItem[];
   windowMenu?: WindowMenuItemType;
+  ribbonBar?: RibbonBarItemType[];
 }
 
+export interface RibbonBarItemType {
+  label?: string;
+  icon?: string;
+  alt?: string;
+  onClick?: () => void;
+}
 export interface WindowMenuItemType {
   [key: string]: WindowMenuSubItemType[];
 }

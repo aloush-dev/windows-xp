@@ -25,7 +25,7 @@ export const WindowMenu = ({ app }: { app: AppItemInfo }) => {
 
   return (
     <div
-      className="bg-cream-background w-full h-6 border-cream-border border-b-1"
+      className="bg-cream-background h-6 border-b-1 border-l-2 border-r-2 border-b-cream-border border-l-xp-blue border-r-xp-blue"
       ref={menuRef}
     >
       <div className="flex items-center h-full gap-2 ">
@@ -60,7 +60,7 @@ const WindowMenuItem = ({
   return (
     <div className="relative">
       <div
-        className="hover:bg-xp-blue hover:text-white cursor-pointer px-1"
+        className="hover:bg-xp-blue hover:text-white cursor-pointer px-1 "
         onClick={(e) => {
           e.stopPropagation();
           onSelect();

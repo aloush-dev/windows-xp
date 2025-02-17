@@ -3,6 +3,7 @@ import { AppItemInfo, WindowState } from "../../lib/types";
 import useWindowManager from "../../stores/useWindowManager";
 import { TitleBar } from "../ui/TitleBar";
 import { WindowMenu } from "./WindowMenu";
+import { RibbonBar } from "../RibbonBar/RibbonBar";
 
 export const WindowTemplate = ({
   children,
@@ -98,7 +99,7 @@ export const WindowTemplate = ({
         left: window.x,
         zIndex: window.zIndex,
       }}
-      onMouseDown={handleMouseDown}
+      // onMouseDown={handleMouseDown}
     >
       <TitleBar
         isFocused={isFocused}
@@ -115,10 +116,11 @@ export const WindowTemplate = ({
           <button aria-label="Close" onClick={handleClose}></button>
         </div>
       </TitleBar>
+      <WindowMenu app={app} />
+      {app.ribbonBar && <RibbonBar app={app} />}
       <div
         className={`${borderColor} bg-cream-background h-[calc(100%-40px)] overflow-auto`}
       >
-        <WindowMenu app={app} />
         {children}
       </div>
     </div>

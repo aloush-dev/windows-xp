@@ -10,7 +10,6 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({ icon }) => {
   const { launchApp } = useAppStore();
 
   const onDoubleClick = () => {
-    console.log("Double click", icon.name);
     launchApp(icon.app);
   };
 
