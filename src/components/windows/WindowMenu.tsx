@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AppItemInfo, WindowMenuSubItemType } from "../../lib/types";
 
 export const WindowMenu = ({ app }: { app: AppItemInfo }) => {

@@ -10,7 +10,7 @@ import WindowsMessenger from "/images/icons/WindowsMessenger.png";
 import Email from "/images/icons/Email.png";
 import Printer from "/images/icons/Printer.png";
 import IEEdit from "/images/icons/IEEdit.png";
-import URL from "/images/icons/URL.png";
+// import URL from "/images/icons/URL.png";
 import { useState } from "react";
 
 export const InternetExplorerMainWindow = () => {
@@ -48,17 +48,17 @@ export const InternetExplorerMainWindow = () => {
       <div className="h6 items-center bg-cream-background border-cream-border flex">
         <p className="px-2 flex items-center">Address</p>
         <div className="relative flex-1">
-          <img
+          {/* <img
             src={URL}
             alt="URL"
-            className="absolute left-1 top-1/2 transform -translate-y-1/2 h-4 w-4"
-          />
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4"
+          /> */}
           <input
             disabled
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             type="text"
-            className="w-full bg-cream-background border-cream-border pl-6"
+            className="w-full bg-cream-background border-cream-border pl-8" // Increased padding-left
           />
         </div>
       </div>

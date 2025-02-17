@@ -21,4 +21,5 @@ export const installedApps = Promise.all([
   loadApp("internetExplorer"),
   loadApp("msnMessenger"),
   loadApp("taskManager"),
+  loadApp("fileExplorer"),
 ]);

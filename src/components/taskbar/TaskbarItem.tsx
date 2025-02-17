@@ -28,7 +28,7 @@ export const TaskbarItem = ({ app, windowId }: TaskbarItemProps) => {
   return (
     <div className="flex" onClick={handleClick}>
       <div
-        className={`h-8 px-3 font-xp flex justify-center items-center rounded ${
+        className={`h-7 px-3 font-xp flex justify-center items-center rounded opacity-70 ${
           isActive ? "bg-taskbar-blue-light" : "bg-taskbar-blue"
         } ${window?.isMinimized ? "opacity-50" : ""}`}
       >
